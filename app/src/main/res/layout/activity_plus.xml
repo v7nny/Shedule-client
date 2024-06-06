@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sheduleBackgroundColor"
+    tools:context=".PlusActivity">
+
+    <ImageButton
+        android:id="@+id/raspisanie"
+        android:layout_width="119dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="6dp"
+        android:onClick="scheduleAct"
+        android:src="@android:drawable/divider_horizontal_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/tools"
+        app:layout_constraintEnd_toEndOf="@+id/tools"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/tools"
+        app:layout_constraintTop_toTopOf="@+id/tools"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/dobavit"
+        android:layout_width="115dp"
+        android:layout_height="54dp"
+        android:src="@android:drawable/divider_horizontal_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/tools"
+        app:layout_constraintRight_toLeftOf="@+id/raspisanie"
+        app:layout_constraintTop_toTopOf="@+id/tools"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/nastr"
+        android:layout_width="118dp"
+        android:layout_height="54dp"
+        android:onClick="settingsAct"
+        android:src="@android:drawable/divider_horizontal_dark"
+        app:layout_constraintBottom_toBottomOf="@+id/tools"
+        app:layout_constraintLeft_toRightOf="@+id/raspisanie"
+        app:layout_constraintTop_toTopOf="@+id/tools" />
+
+    <ImageView
+        android:id="@+id/toolsBar"
+        android:layout_width="430dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="-1dp"
+        android:src="@drawable/toolsbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/tools"
+        android:layout_width="354dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="21dp"
+        android:src="@drawable/tools2"
+        app:layout_constraintBottom_toBottomOf="@+id/toolsBar"
+        app:layout_constraintEnd_toEndOf="@+id/toolsBar"
+        app:layout_constraintStart_toStartOf="@+id/toolsBar"
+        app:layout_constraintTop_toTopOf="@+id/toolsBar"
+        app:layout_constraintVertical_bias="0.565"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="430dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="-1dp"
+        android:src="@drawable/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/formImage"
+        android:layout_width="370dp"
+        android:layout_height="380dp"
+        android:src="@drawable/form"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <Spinner
+        android:id="@+id/specializationSpinner"
+        style="@style/mySpinnerItemStyle"
+        android:layout_width="319dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="41dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="@+id/formImage"
+        app:layout_constraintStart_toStartOf="@+id/formImage"
+        app:layout_constraintTop_toTopOf="@+id/formImage" />
+
+    <Spinner
+        android:id="@+id/courseSpinner"
+        android:layout_width="319dp"
+        android:layout_height="51dp"
+        style="@style/mySpinnerItemStyle"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/formImage"
+        app:layout_constraintStart_toStartOf="@+id/formImage"
+        app:layout_constraintTop_toBottomOf="@+id/specializationSpinner" />
+
+    <Spinner
+        android:id="@+id/groupSpinner"
+        android:layout_width="319dp"
+        android:layout_height="51dp"
+        style="@style/mySpinnerItemStyle"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/formImage"
+        app:layout_constraintStart_toStartOf="@+id/formImage"
+        app:layout_constraintTop_toBottomOf="@+id/courseSpinner" />
+
+    <ImageView
+        android:id="@+id/groupArrow"
+        android:layout_width="10dp"
+        android:layout_height="7dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="19dp"
+        android:src="@drawable/strela"
+        app:layout_constraintEnd_toEndOf="@+id/groupSpinner"
+        app:layout_constraintTop_toTopOf="@+id/groupSpinner" />
+
+    <ImageView
+        android:id="@+id/specializationArrow"
+        android:layout_width="10dp"
+        android:layout_height="7dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="19dp"
+        android:src="@drawable/strela"
+        app:layout_constraintEnd_toEndOf="@+id/specializationSpinner"
+        app:layout_constraintTop_toTopOf="@+id/specializationSpinner" />
+
+    <ImageView
+        android:id="@+id/courseArrow"
+        android:layout_width="10dp"
+        android:layout_height="7dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="19dp"
+        android:src="@drawable/strela"
+        app:layout_constraintEnd_toEndOf="@+id/courseSpinner"
+        app:layout_constraintTop_toTopOf="@+id/courseSpinner" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="12sp"
+        android:text="Выберите специалность"
+        android:textColor="@color/alyaWhite"
+        app:layout_constraintBottom_toTopOf="@+id/specializationSpinner"
+        app:layout_constraintStart_toStartOf="@+id/formImage" />
+
+    <TextView
+        android:id="@+id/courseText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Выберите курс"
+        android:textColor="@color/alyaWhite"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/courseSpinner"
+        app:layout_constraintStart_toStartOf="@+id/formImage" />
+
+    <TextView
+        android:id="@+id/groupText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Выберите группу"
+        android:textColor="@color/alyaWhite"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/formImage"
+        app:layout_constraintBottom_toTopOf="@+id/groupSpinner"
+        tools:layout_editor_absoluteY="386dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

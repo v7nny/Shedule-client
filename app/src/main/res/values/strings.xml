@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Shedule</string>
+    <string name="some_text">0</string>
+    <string name="countPlus">+</string>
+    <string name="countMinus">-</string>
+    <string name="toast">Toast</string>
+    <string name="random">Random</string>
+    <string name="clear">Clear</string>
+    <string name="random_text">Случайное число между 0 и %1$d</string>
+    <string name="randomPlus">Random+</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="paste">Paste</string>
+    <string name="finish">Finish</string>
+</resources>
