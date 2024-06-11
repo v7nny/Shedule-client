@@ -13,4 +13,4 @@
 .externalNativeBuild
 .cxx
 local.properties
-!/app/src/main/java/com/android/shedule/retrofit/RetrofitGetter.kt
+/app/src/main/java/com/android/shedule/retrofit/RetrofitGetter.kt
