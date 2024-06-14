@@ -17,6 +17,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".SecondWeek"
+            android:exported="false" />
+        <activity
+            android:name=".FirstWeek"
+            android:exported="false" />
+        <activity
             android:name=".FilterActivity"
             android:exported="false" />
         <activity
@@ -27,7 +33,7 @@
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".AnotherActivity"
+            android:name=".ScheduleActivity"
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
         <activity

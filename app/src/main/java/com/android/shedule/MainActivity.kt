@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.android.shedule.ui.theme.SheduleTheme
 
 
@@ -35,8 +33,8 @@ class MainActivity : ComponentActivity() {
     private fun splashScreen(){
         Handler().postDelayed(Runnable {
             run(){
-                val anotherActivity = Intent(this, AnotherActivity::class.java)
-                startActivity(anotherActivity)
+                val scheduleActivity = Intent(this, ScheduleActivity::class.java)
+                startActivity(scheduleActivity)
                 finish()
             }
         }, 1500)

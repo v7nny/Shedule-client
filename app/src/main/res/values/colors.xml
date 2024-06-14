@@ -15,5 +15,6 @@
     <color name="sheduleBackgroundColor">#292F3D</color>
     <color name="sheduleBarColor">#3B4253</color>
     <color name="my_spinner_text_color">#DEDCDC</color>
+    <color name="textColorSchedule">#D9D9D9</color>
 
 </resources>

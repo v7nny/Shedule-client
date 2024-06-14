@@ -5,26 +5,25 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.ComponentActivity
-import androidx.core.view.get
+import com.android.shedule.adapter.ScheduleBoxAdapter
 import com.android.shedule.api.GroupApi
 import com.android.shedule.api.SpecializationApi
-import com.android.shedule.models.Specialization
 import com.android.shedule.retrofit.RetrofitGetter
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import java.util.stream.Collectors.toList
 
 class PlusActivity : ComponentActivity() {
 
     private val retrofit = RetrofitGetter()
+    private val groupApi = retrofit.getRetrofit().create(GroupApi::class.java)
+    private val specializationApi = retrofit.getRetrofit().create(SpecializationApi::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,30 +33,29 @@ class PlusActivity : ComponentActivity() {
         window.navigationBarColor = resources.getColor(R.color.sheduleBarColor)
 
         getCourseSpinner().adapter = getAdapter(getCourseList())
-        getSpecializationSpinner().adapter = getAdapter(getSpecializationList())
-        groupSpinner()
+        getSpecializationSpinner().adapter = getAdapter(getSpecializationNameList())
+        getGroupSpinner().adapter = getAdapter(groupSpinner())
+
     }
 
     //Получаем Spinner'ы
     private fun getCourseSpinner(): Spinner = findViewById(R.id.courseSpinner)
     private fun getSpecializationSpinner(): Spinner = findViewById(R.id.specializationSpinner)
-    private fun getGroupSpinner(): Spinner = findViewById(R.id.groupSpinner)
+     fun getGroupSpinner(): Spinner = findViewById(R.id.groupSpinner)
 
     //Получаем ArrayList'ы для Spinner'ов
-    private fun getCourseList(): ArrayList<String> = arrayListOf("1", "2", "3", "4")
+    private fun getCourseList(): ArrayList<String> = arrayListOf("--", "1", "2", "3", "4")
 
-    private fun getSpecializationList(): ArrayList<String> {
-        val specializationApi = retrofit.getRetrofit().create(SpecializationApi::class.java)
-        val specializationArrayList: ArrayList<String> = arrayListOf("")
+    private fun getSpecializationNameList(): ArrayList<String> {
+        val specializationNameArrayList: ArrayList<String> = arrayListOf("--")
 
         //Получаем специализации с сервера и добавляем их в ArrayList
-        CoroutineScope(Dispatchers.Main).launch{
+        CoroutineScope(Dispatchers.IO).launch{
             for (i in 0 until specializationApi.getSpecializations().size) {
-                specializationArrayList += specializationApi.getSpecializations()[i].name
+                specializationNameArrayList += specializationApi.getSpecializations()[i].name
             }
         }
-
-        return specializationArrayList
+        return specializationNameArrayList
     }
 
     //Получаем Adapter
@@ -74,7 +72,7 @@ class PlusActivity : ComponentActivity() {
 
     //Переход на экран с расписанием
     fun scheduleAct(view: View){
-        val scheduleIntent = Intent(this, AnotherActivity::class.java)
+        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
         startActivity(scheduleIntent)
         finish()
     }
@@ -86,53 +84,38 @@ class PlusActivity : ComponentActivity() {
         finish()
     }
 
-    private fun groupSpinner() {
-        val groupApi = retrofit.getRetrofit().create(GroupApi::class.java)
-        val groupArrayList: ArrayList<String> = arrayListOf("")
-        val specializationApi = retrofit.getRetrofit().create(SpecializationApi::class.java)
-        var course = 0
-        var positions = 0
 
-
-        getSpecializationSpinner().onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position1: Int, id: Long) {
-
-                CoroutineScope(Dispatchers.IO).launch {
-                    for (i in 0 until specializationApi.getSpecializations().size) {
-                        getSpecializationList() += specializationApi.getSpecializations()[i].name
-                    }
-
-                }
-                positions = position1
-
-                groupArrayList.clear()
-                groupArrayList.add("")
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
+    private fun groupSpinner(): ArrayList<String> {
+        val groupArrayList: ArrayList<String> = arrayListOf("--")
 
         getCourseSpinner().onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                course = getCourseList()[position].toInt()
+                val course = getCourseSpinner().selectedItem.toString()
+                val specializationName = getSpecializationSpinner().selectedItem.toString()
 
                 CoroutineScope(Dispatchers.IO).launch {
-                for (i in 0 until groupApi.getGroupsBySpecializationAndCourse(getSpecializationList()[positions], course).size){
-                        groupArrayList.add(groupApi.getGroupsBySpecializationAndCourse(getSpecializationList()[positions], course)[i].name)
+                    for (i in 0 until groupApi.getGroupsBySpecializationAndCourse(specializationName, course).size){
+                        groupArrayList.add(groupApi.getGroupsBySpecializationAndCourse(specializationName, course)[i].name)
                     }
                 }
                 groupArrayList.clear()
-                groupArrayList.add("")
+                groupArrayList.add("--")
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-
         }
-        getGroupSpinner().adapter = getAdapter(groupArrayList)
+        return groupArrayList
     }
+
+    //Добавление выбранного расписания на экран с расписанием и переход на него
+    fun sendGroup(view: View) {
+
+
+
+        val scheduleActivityIntent = Intent(this, ScheduleActivity::class.java)
+        startActivity(scheduleActivityIntent)
+        finish()
+    }
+
 }

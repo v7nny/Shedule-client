@@ -4,26 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
-
-class SettingsActivity : ComponentActivity() {
+class SecondWeek : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.activity_second_week)
         overridePendingTransition(0,0)
         window.statusBarColor = resources.getColor(R.color.sheduleBarColor)
         window.navigationBarColor = resources.getColor(R.color.sheduleBarColor)
     }
 
-    fun scheduleAct(view: View){
-        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
-        startActivity(scheduleIntent)
-        finish()
-    }
-
-    fun plusAct(view: View){
-        val plusIntent = Intent(this, PlusActivity::class.java)
-        startActivity(plusIntent)
+    fun toFirstWeek(view: View) {
+        val firstWeekIntent = Intent(this, FirstWeek::class.java)
+        startActivity(firstWeekIntent)
         finish()
     }
 }

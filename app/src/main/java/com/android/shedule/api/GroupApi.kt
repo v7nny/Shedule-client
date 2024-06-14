@@ -10,5 +10,8 @@ interface GroupApi {
 
     @GET("groups/{name}-{course}")
     suspend fun getGroupsBySpecializationAndCourse(@Path(value = "name") name: String,
-                                                   @Path(value = "course") course: Int): List<Group>
+                                                   @Path(value = "course") course: String): List<Group>
+
+    @GET("schedule/groups/{id}")
+    suspend fun getScheduleByGroupId(@Path(value = "id") id: Int): List<Group>
 }

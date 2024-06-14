@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sheduleBackgroundColor"
-    tools:context=".AnotherActivity">
+    tools:context=".ScheduleActivity">
 
     <ImageButton
         android:id="@+id/raspisanie"
@@ -22,7 +22,7 @@
 
     <ImageButton
         android:id="@+id/dobavit"
-        android:layout_width="115dp"
+        android:layout_width="119dp"
         android:layout_height="54dp"
         android:onClick="plusAct"
         android:src="@android:drawable/divider_horizontal_dark"
@@ -76,14 +76,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="251dp"
-        android:layout_height="476dp"
-        android:src="@drawable/najmi"
+<!--    <ImageView-->
+<!--        android:id="@+id/addSchedule"-->
+<!--        android:layout_width="251dp"-->
+<!--        android:layout_height="476dp"-->
+<!--        android:src="@drawable/najmi"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/toolsBar"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.14"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+    <Button
+        android:id="@+id/buttonNMNM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="4dp"
+        android:alpha="0"
+        android:onClick="firstWeek"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="410dp"
+        android:layout_height="718dp"
         app:layout_constraintBottom_toTopOf="@+id/toolsBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
