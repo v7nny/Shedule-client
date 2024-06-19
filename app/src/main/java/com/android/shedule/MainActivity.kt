@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
         }, 1500)
     }
 
-//    fun another(view: View) = startActivity(anotherIntent)
 
     private fun prgBarAnim(){
         val prgBar = findViewById<ProgressBar>(R.id.prgBar)
@@ -48,23 +47,5 @@ class MainActivity : ComponentActivity() {
         ObjectAnimator.ofInt(prgBar,"Progress", 500)
             .setDuration(1500)
             .start()
-    }
-
-
-}
-//Шмурдяка не нужная (для превью штуки)
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-            text = "Hello $name!",
-            modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SheduleTheme {
-        Greeting("Android")
     }
 }

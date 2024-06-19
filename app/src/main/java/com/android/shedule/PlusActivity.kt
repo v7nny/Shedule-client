@@ -72,8 +72,8 @@ class PlusActivity : ComponentActivity() {
 
     //Переход на экран с расписанием
     fun scheduleAct(view: View){
-        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
-        startActivity(scheduleIntent)
+//        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
+//        startActivity(scheduleIntent)
         finish()
     }
     
@@ -110,10 +110,12 @@ class PlusActivity : ComponentActivity() {
 
     //Добавление выбранного расписания на экран с расписанием и переход на него
     fun sendGroup(view: View) {
-
-
-
         val scheduleActivityIntent = Intent(this, ScheduleActivity::class.java)
+
+        scheduleActivityIntent.putExtra("groupName", getGroupSpinner().selectedItem.toString())
+        scheduleActivityIntent.putExtra("course", getCourseSpinner().selectedItem.toString())
+        scheduleActivityIntent.putExtra("specializationName", getSpecializationSpinner().selectedItem.toString())
+
         startActivity(scheduleActivityIntent)
         finish()
     }

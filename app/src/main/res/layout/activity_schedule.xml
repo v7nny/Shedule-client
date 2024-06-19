@@ -100,6 +100,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="410dp"
+        android:id="@+id/scheduleBoxRecyclerView"
         android:layout_height="718dp"
         app:layout_constraintBottom_toTopOf="@+id/toolsBar"
         app:layout_constraintEnd_toEndOf="parent"
