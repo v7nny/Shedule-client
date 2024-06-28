@@ -7,16 +7,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.R
-import com.android.shedule.ScheduleForDrawing
-import com.android.shedule.models.Schedule
+import com.android.shedule.adapter.FirstWeekAdapter.FirstWeekHolder
 
-class FirstWeekAdapter (private val imageList: ArrayList<Int>, private val subjectNameThird: ArrayList<String>,
+class SecondWeekAdapter(private val imageList: ArrayList<Int>, private val subjectNameThird: ArrayList<String>,
                         private val thirdTimeList: ArrayList<String>, private val thirdAuditorium: ArrayList<String>,
-                        private val thirdTeachersList: ArrayList<String>, private val scheduleMap: MutableMap<String, ArrayList<String>>,
-                        private val scheduleForDrawingArray: ArrayList<ScheduleForDrawing>
-) : RecyclerView.Adapter<FirstWeekAdapter.FirstWeekHolder>() {
+                        private val thirdTeachersList: ArrayList<String>, private val scheduleMap: MutableMap<String, ArrayList<String>>
+): RecyclerView.Adapter<SecondWeekAdapter.SecondWeekHolder>() {
 
-    class FirstWeekHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class SecondWeekHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val dayImageList: ImageView = itemView.findViewById(R.id.dayImage)
 
         val subjectNameFirst: TextView = itemView.findViewById(R.id.subjectNameFirst)
@@ -35,19 +33,19 @@ class FirstWeekAdapter (private val imageList: ArrayList<Int>, private val subje
         val timeTextViewThird: TextView = itemView.findViewById(R.id.timeTextViewThird)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstWeekHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_for_first_week, parent, false)
-        return FirstWeekHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SecondWeekHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_for_second_week, parent, false)
+        return SecondWeekHolder(view)
     }
 
     override fun getItemCount(): Int {
         return imageList.size
     }
 
-    override fun onBindViewHolder(holder: FirstWeekHolder, position: Int) {
+    override fun onBindViewHolder(holder: SecondWeekHolder, position: Int) {
         holder.dayImageList.setImageResource(imageList[position])
 
-        holder.subjectNameFirst.text = scheduleForDrawingArray[0].subject[0]
+        holder.subjectNameFirst.text = scheduleMap["Subjects 0"]?.get(position)
         holder.teacherNameFirst.text = scheduleMap["Teachers 0"]?.get(position)
         holder.auditoriumNameFirst.text = scheduleMap["Auditorium 0"]?.get(position)
         holder.timeTextViewFirst.text = scheduleMap["Time 0"]?.get(position)

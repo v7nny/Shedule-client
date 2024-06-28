@@ -55,7 +55,7 @@
         app:layout_constraintTop_toTopOf="@+id/secondWeekArrowButton" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/weekRecyclerView"
+        android:id="@+id/recyclerViewFirstWeek"
         android:layout_width="409dp"
         android:layout_height="710dp"
         android:layout_marginTop="15dp"

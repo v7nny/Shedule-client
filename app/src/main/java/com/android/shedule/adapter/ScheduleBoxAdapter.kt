@@ -7,22 +7,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.R
+import com.android.shedule.ScheduleBox
 import com.android.shedule.models.Group
 import com.android.shedule.models.Specialization
 
-class ScheduleBoxAdapter constructor(private val specializationNameList: ArrayList<String>,
-                                     private val courseList: ArrayList<String>,
-                                     private val groupNameList: ArrayList<String>,
-                                     val imageId: Int): RecyclerView.Adapter<ScheduleBoxAdapter.ScheduleBoxHolder>() {
-
-
-
+class ScheduleBoxAdapter constructor(private val array: ArrayList<ScheduleBox>,
+                                     private val imageId: Int): RecyclerView.Adapter<ScheduleBoxAdapter.ScheduleBoxHolder>() {
 
     class ScheduleBoxHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val specializationName = itemView.findViewById<TextView>(R.id.specializationName)
-        val course = itemView.findViewById<TextView>(R.id.course)
-        val groupName = itemView.findViewById<TextView>(R.id.groupName)
-        val imageId = itemView.findViewById<ImageView>(R.id.scheduleBox)
+        val imageId: ImageView = itemView.findViewById(R.id.scheduleBox)
+
+        val specializationName: TextView = itemView.findViewById(R.id.specializationName)
+        val course: TextView = itemView.findViewById(R.id.course)
+        val groupName: TextView = itemView.findViewById(R.id.groupName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleBoxHolder {
@@ -32,14 +29,15 @@ class ScheduleBoxAdapter constructor(private val specializationNameList: ArrayLi
     }
 
     override fun getItemCount(): Int {
-        return specializationNameList.size
+        return array.size
     }
 
     override fun onBindViewHolder(holder: ScheduleBoxHolder, position: Int) {
-        holder.specializationName.text = specializationNameList[position]
-        holder.course.text = "Курс: " + courseList[position]
-        holder.groupName.text = groupNameList[position]
         holder.imageId.setImageResource(imageId)
+
+        holder.specializationName.text = array[position].specializationName
+        holder.course.text = "Курс: " + array[position].course
+        holder.groupName.text = array[position].groupName
     }
 
 }

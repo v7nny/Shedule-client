@@ -11,4 +11,9 @@ interface ScheduleApi {
 
     @GET("schedule/groups/{id}")
     suspend fun getScheduleByGroupId(@Path(value = "id") id: Int): List<Schedule>
+
+    @GET("schedule/week/{groupId}-{weekId}-{weekType}")
+    suspend fun getScheduleByGroupIdAndWeekIdAndWeekType(@Path(value = "groupId") groupId: Int,
+                                                         @Path(value = "weekId") weekId: Int,
+                                                         @Path(value = "weekType") weekType: Int): List<Schedule>
 }
