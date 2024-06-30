@@ -1,8 +1,8 @@
 package com.android.shedule
 
 data class ScheduleForDrawing(
-    val subject: Array<String>,
-    val time: Array<String>,
-    val teacher: Array<String>,
-    val auditorium: Array<String>
+    val subject: List<String>,
+    val time: List<String>,
+    val teacher: List<String>,
+    val auditorium: List<String>
 )

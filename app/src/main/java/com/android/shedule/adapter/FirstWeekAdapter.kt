@@ -10,9 +10,7 @@ import com.android.shedule.R
 import com.android.shedule.ScheduleForDrawing
 import com.android.shedule.models.Schedule
 
-class FirstWeekAdapter (private val imageList: ArrayList<Int>, private val subjectNameThird: ArrayList<String>,
-                        private val thirdTimeList: ArrayList<String>, private val thirdAuditorium: ArrayList<String>,
-                        private val thirdTeachersList: ArrayList<String>, private val scheduleMap: MutableMap<String, ArrayList<String>>,
+class FirstWeekAdapter (private val imageList: ArrayList<Int>,
                         private val scheduleForDrawingArray: ArrayList<ScheduleForDrawing>
 ) : RecyclerView.Adapter<FirstWeekAdapter.FirstWeekHolder>() {
 
@@ -47,19 +45,19 @@ class FirstWeekAdapter (private val imageList: ArrayList<Int>, private val subje
     override fun onBindViewHolder(holder: FirstWeekHolder, position: Int) {
         holder.dayImageList.setImageResource(imageList[position])
 
-        holder.subjectNameFirst.text = scheduleForDrawingArray[0].subject[0]
-        holder.teacherNameFirst.text = scheduleMap["Teachers 0"]?.get(position)
-        holder.auditoriumNameFirst.text = scheduleMap["Auditorium 0"]?.get(position)
-        holder.timeTextViewFirst.text = scheduleMap["Time 0"]?.get(position)
+        holder.subjectNameFirst.text = scheduleForDrawingArray[position].subject[0]
+        holder.teacherNameFirst.text = scheduleForDrawingArray[position].teacher[0]
+        holder.auditoriumNameFirst.text = scheduleForDrawingArray[position].auditorium[0]
+        holder.timeTextViewFirst.text = scheduleForDrawingArray[position].time[0]
 
-        holder.subjectNameSecond.text = scheduleMap["Subjects 1"]?.get(position)
-        holder.teacherNameSecond.text = scheduleMap["Teachers 1"]?.get(position)
-        holder.auditoriumNameSecond.text = scheduleMap["Auditorium 1"]?.get(position)
-        holder.timeTextViewSecond.text = scheduleMap["Time 1"]?.get(position)
+        holder.subjectNameSecond.text = scheduleForDrawingArray[position].subject[1]
+        holder.teacherNameSecond.text = scheduleForDrawingArray[position].teacher[1]
+        holder.auditoriumNameSecond.text = scheduleForDrawingArray[position].auditorium[1]
+        holder.timeTextViewSecond.text = scheduleForDrawingArray[position].time[1]
 
-        holder.subjectNameThird.text = subjectNameThird[position]
-        holder.teacherNameThird.text = thirdTeachersList[position]
-        holder.auditoriumNameThird.text = thirdAuditorium[position]
-        holder.timeTextViewThird.text = thirdTimeList[position]
+        holder.subjectNameThird.text = scheduleForDrawingArray[position].subject[2]
+        holder.teacherNameThird.text = scheduleForDrawingArray[position].teacher[2]
+        holder.auditoriumNameThird.text = scheduleForDrawingArray[position].auditorium[2]
+        holder.timeTextViewThird.text = scheduleForDrawingArray[position].time[2]
     }
 }
