@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
@@ -14,6 +15,9 @@ import androidx.activity.ComponentActivity
 import com.android.shedule.adapter.ScheduleBoxAdapter
 import com.android.shedule.api.GroupApi
 import com.android.shedule.api.SpecializationApi
+import com.android.shedule.config.DbConfig
+import com.android.shedule.dao.ScheduleBoxDAO
+import com.android.shedule.models.ScheduleBoxDbEntity
 import com.android.shedule.retrofit.RetrofitGetter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,12 +40,37 @@ class PlusActivity : ComponentActivity() {
         getSpecializationSpinner().adapter = getAdapter(getSpecializationNameList())
         getGroupSpinner().adapter = getAdapter(groupSpinner())
 
+        val saveButton = findViewById<Button>(R.id.sendButton)
+
+        val database = DbConfig.getDb(this)
+
+        saveButton.setOnClickListener {
+            val scheduleBox = ScheduleBoxDbEntity(null,
+                getGroupSpinner().selectedItem.toString(),
+                getCourseSpinner().selectedItem.toString(),
+                getSpecializationSpinner().selectedItem.toString()
+            )
+
+
+            Thread{
+                database.getDao().insertInsertScheduleBox(scheduleBox)
+            }.start()
+
+            val scheduleActivityIntent = Intent(this, ScheduleActivity::class.java)
+
+            scheduleActivityIntent.putExtra("groupName", getGroupSpinner().selectedItem.toString())
+            scheduleActivityIntent.putExtra("course", getCourseSpinner().selectedItem.toString())
+            scheduleActivityIntent.putExtra("specializationName", getSpecializationSpinner().selectedItem.toString())
+
+            startActivity(scheduleActivityIntent)
+            finish()
+        }
     }
 
     //Получаем Spinner'ы
     private fun getCourseSpinner(): Spinner = findViewById(R.id.courseSpinner)
     private fun getSpecializationSpinner(): Spinner = findViewById(R.id.specializationSpinner)
-     fun getGroupSpinner(): Spinner = findViewById(R.id.groupSpinner)
+    private fun getGroupSpinner(): Spinner = findViewById(R.id.groupSpinner)
 
     //Получаем ArrayList'ы для Spinner'ов
     private fun getCourseList(): ArrayList<String> = arrayListOf("--", "1", "2", "3", "4")

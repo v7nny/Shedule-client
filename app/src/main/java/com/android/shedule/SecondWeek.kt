@@ -6,10 +6,10 @@ import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.shedule.adapter.FirstWeekAdapter
 import com.android.shedule.adapter.SecondWeekAdapter
 import com.android.shedule.api.GroupApi
 import com.android.shedule.api.ScheduleApi
+import com.android.shedule.models.ScheduleForDrawing
 import com.android.shedule.retrofit.RetrofitGetter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,33 +36,29 @@ class SecondWeek : ComponentActivity() {
         val groupName = intent.getStringExtra("groupName").toString()
         val groupCourse = intent.getStringExtra("course").toString()
 
-        val scheduleForDrawingArray : ArrayList<ScheduleForDrawing> = arrayListOf()
+        val scheduleForDrawingArray : Array<Array<ScheduleForDrawing>> = Array(6){
+            Array(3){
+                ScheduleForDrawing("", "", "", "")
+            }
+        }
 
         CoroutineScope(Dispatchers.Main).launch{
             val groupId = groupApi.getGroupByNameAndCourse(groupName, groupCourse.toInt()).id
             for(i in 1 until 7) {
                 val scheduleList = scheduleApi.getScheduleByGroupIdAndWeekIdAndWeekType(groupId, i, 1)
 
-                val subjectArray: Array<String> = Array(3){" "}
-                val teacherArray: Array<String> = Array(3){" "}
-                val auditoriumArray: Array<String> = Array(3){" "}
-                val timeArray: Array<String> = Array(3){" "}
-
                 for(j in scheduleList.indices){
-                    subjectArray[j] = scheduleList[j].subject.name
-                    teacherArray[j] = scheduleList[j].subject.teacher.fullName
-                    timeArray[j] = scheduleList[j].time.time.substringBeforeLast(':')
-                    auditoriumArray[j] = "Аудитория: " + scheduleList[j].subject.auditorium
+                    scheduleForDrawingArray[i - 1][j].subject = scheduleList[j].subject.name
+                    scheduleForDrawingArray[i - 1][j].teacher = scheduleList[j].subject.teacher.fullName
+                    scheduleForDrawingArray[i - 1][j].time = scheduleList[j].time.time.substringBeforeLast(':')
+                    scheduleForDrawingArray[i - 1][j].auditorium = "Аудитория: " + scheduleList[j].subject.auditorium
                 }
-
-                scheduleForDrawingArray += ScheduleForDrawing(subjectArray.toList(), timeArray.toList(),
-                    teacherArray.toList(), auditoriumArray.toList())
             }
             dayRecyclerView(scheduleForDrawingArray)
         }
     }
 
-    private fun dayRecyclerView(scheduleForDrawingArray: ArrayList<ScheduleForDrawing>) {
+    private fun dayRecyclerView(scheduleForDrawingArray: Array<Array<ScheduleForDrawing>>) {
         val weekRecyclerView = findViewById<RecyclerView>(R.id.recyclerViewSecondWeek)
         val imageList = arrayListOf(
             R.drawable.monday_second,

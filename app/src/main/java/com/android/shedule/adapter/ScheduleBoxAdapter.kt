@@ -7,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.R
-import com.android.shedule.ScheduleBox
-import com.android.shedule.models.Group
-import com.android.shedule.models.Specialization
+import com.android.shedule.models.ScheduleBox
 
 class ScheduleBoxAdapter constructor(private val array: ArrayList<ScheduleBox>,
                                      private val imageId: Int): RecyclerView.Adapter<ScheduleBoxAdapter.ScheduleBoxHolder>() {

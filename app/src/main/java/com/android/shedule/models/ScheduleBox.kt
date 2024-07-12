@@ -1,4 +1,4 @@
-package com.android.shedule
+package com.android.shedule.models
 
 data class ScheduleBox(
     val groupName: String,

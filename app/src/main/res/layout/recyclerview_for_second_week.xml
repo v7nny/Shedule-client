@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,148 +15,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/subjectNameFirst"
-        android:layout_width="255dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="100dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/teacherNameFirst"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameFirst" />
-
-    <TextView
-        android:id="@+id/auditoriumNameFirst"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/teacherNameFirst" />
-
-    <TextView
-        android:id="@+id/timeTextViewFirst"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="60dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="13sp"
-        android:textStyle="bold"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewForSecondWeekDays"
+        android:layout_width="260dp"
+        android:layout_height="250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameFirst" />
-
-    <TextView
-        android:id="@+id/subjectNameSecond"
-        android:layout_width="255dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="45dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameFirst" />
-
-    <TextView
-        android:id="@+id/auditoriumNameSecond"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/teacherNameSecond" />
-
-    <TextView
-        android:id="@+id/teacherNameSecond"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameSecond" />
-
-    <TextView
-        android:id="@+id/timeTextViewSecond"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="60dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameSecond" />
-
-    <TextView
-        android:id="@+id/subjectNameThird"
-        android:layout_width="255dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="45dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameSecond" />
-
-    <TextView
-        android:id="@+id/teacherNameThird"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameThird" />
-
-    <TextView
-        android:id="@+id/auditoriumNameThird"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/teacherNameThird" />
-
-    <TextView
-        android:id="@+id/timeTextViewThird"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="60dp"
-        android:text="TextView"
-        android:textColor="@color/sheduleBackgroundColor"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/dayImage"
-        app:layout_constraintTop_toBottomOf="@+id/subjectNameThird" />
+        app:layout_constraintTop_toTopOf="@+id/dayImage"
+        app:layout_constraintVertical_bias="0.69" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

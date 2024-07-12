@@ -1,6 +1,5 @@
 package com.android.shedule
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -8,6 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.adapter.ScheduleBoxAdapter
+import com.android.shedule.config.DbConfig
+import com.android.shedule.models.ScheduleBox
+import com.android.shedule.models.ScheduleBoxDbEntity
 
 class ScheduleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,14 +35,16 @@ class ScheduleActivity : ComponentActivity() {
     }
 
 
-    @SuppressLint("NotifyDataSetChanged")
+//    @SuppressLint("NotifyDataSetChanged")
     private fun getScheduleBox() {
         val recyclerView = findViewById<RecyclerView>(R.id.scheduleBoxRecyclerView)
         val intent: Intent  = intent
 
-        scheduleBoxArray.add(ScheduleBox(intent.getStringExtra("groupName").toString(),
+        scheduleBoxArray.add(
+            ScheduleBox(intent.getStringExtra("groupName").toString(),
             intent.getStringExtra("course").toString(),
-            intent.getStringExtra("specializationName").toString()))
+            intent.getStringExtra("specializationName").toString())
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
