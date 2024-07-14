@@ -16,8 +16,8 @@ class SettingsActivity : ComponentActivity() {
     }
 
     fun scheduleAct(view: View){
-//        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
-//        startActivity(scheduleIntent)
+        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
+        startActivity(scheduleIntent)
         finish()
     }
 

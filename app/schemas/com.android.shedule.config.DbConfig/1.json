@@ -2,18 +2,12 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "115ebd8082dfe1f3f38722e94045228c",
+    "identityHash": "ae9625b0beba29687a3dbcd689d066a0",
     "entities": [
       {
         "tableName": "ScheduleBox",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `group_name` TEXT NOT NULL, `course` TEXT NOT NULL, `specialization_name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`group_name` TEXT NOT NULL, `course` TEXT NOT NULL, `specialization_name` TEXT NOT NULL, PRIMARY KEY(`group_name`, `course`, `specialization_name`))",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
           {
             "fieldPath": "groupName",
             "columnName": "group_name",
@@ -34,9 +28,11 @@
           }
         ],
         "primaryKey": {
-          "autoGenerate": true,
+          "autoGenerate": false,
           "columnNames": [
-            "id"
+            "group_name",
+            "course",
+            "specialization_name"
           ]
         },
         "indices": [],
@@ -46,7 +42,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '115ebd8082dfe1f3f38722e94045228c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ae9625b0beba29687a3dbcd689d066a0')"
     ]
   }
 }

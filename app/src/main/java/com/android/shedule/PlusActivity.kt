@@ -12,6 +12,7 @@ import android.widget.SpinnerAdapter
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.ComponentActivity
+import androidx.lifecycle.asLiveData
 import com.android.shedule.adapter.ScheduleBoxAdapter
 import com.android.shedule.api.GroupApi
 import com.android.shedule.api.SpecializationApi
@@ -21,6 +22,7 @@ import com.android.shedule.models.ScheduleBoxDbEntity
 import com.android.shedule.retrofit.RetrofitGetter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class PlusActivity : ComponentActivity() {
@@ -40,31 +42,7 @@ class PlusActivity : ComponentActivity() {
         getSpecializationSpinner().adapter = getAdapter(getSpecializationNameList())
         getGroupSpinner().adapter = getAdapter(groupSpinner())
 
-        val saveButton = findViewById<Button>(R.id.sendButton)
-
-        val database = DbConfig.getDb(this)
-
-        saveButton.setOnClickListener {
-            val scheduleBox = ScheduleBoxDbEntity(null,
-                getGroupSpinner().selectedItem.toString(),
-                getCourseSpinner().selectedItem.toString(),
-                getSpecializationSpinner().selectedItem.toString()
-            )
-
-
-            Thread{
-                database.getDao().insertInsertScheduleBox(scheduleBox)
-            }.start()
-
-            val scheduleActivityIntent = Intent(this, ScheduleActivity::class.java)
-
-            scheduleActivityIntent.putExtra("groupName", getGroupSpinner().selectedItem.toString())
-            scheduleActivityIntent.putExtra("course", getCourseSpinner().selectedItem.toString())
-            scheduleActivityIntent.putExtra("specializationName", getSpecializationSpinner().selectedItem.toString())
-
-            startActivity(scheduleActivityIntent)
-            finish()
-        }
+        sendGroup()
     }
 
     //Получаем Spinner'ы
@@ -101,8 +79,8 @@ class PlusActivity : ComponentActivity() {
 
     //Переход на экран с расписанием
     fun scheduleAct(view: View){
-//        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
-//        startActivity(scheduleIntent)
+        val scheduleIntent = Intent(this, ScheduleActivity::class.java)
+        startActivity(scheduleIntent)
         finish()
     }
     
@@ -137,16 +115,35 @@ class PlusActivity : ComponentActivity() {
         return groupArrayList
     }
 
-    //Добавление выбранного расписания на экран с расписанием и переход на него
-    fun sendGroup(view: View) {
-        val scheduleActivityIntent = Intent(this, ScheduleActivity::class.java)
+    private fun sendGroup() {
+        val saveButton = findViewById<Button>(R.id.sendButton)
+        val database = DbConfig.getDb(this)
 
-        scheduleActivityIntent.putExtra("groupName", getGroupSpinner().selectedItem.toString())
-        scheduleActivityIntent.putExtra("course", getCourseSpinner().selectedItem.toString())
-        scheduleActivityIntent.putExtra("specializationName", getSpecializationSpinner().selectedItem.toString())
+        saveButton.setOnClickListener {
+            val scheduleBox = ScheduleBoxDbEntity(
+                getGroupSpinner().selectedItem.toString(),
+                getCourseSpinner().selectedItem.toString(),
+                getSpecializationSpinner().selectedItem.toString()
+            )
 
-        startActivity(scheduleActivityIntent)
-        finish()
+        database.getDao().getAllScheduleBox().asLiveData().observe(this){
+            val isLocated = it.stream().filter{s -> s == scheduleBox}.findAny().orElse(null)
+
+            if(isLocated == null){
+                Thread {
+                    database.getDao().insertScheduleBox(scheduleBox)
+                }.start()
+            }
+
+//            if (it.stream().filter{s -> s == scheduleBox}.findAny().orElse(null) != null){
+//                Toast.makeText(this, "Вы уже добавили расписание для этой группы", LENGTH_SHORT).show()
+//            }
+        }
+
+            val scheduleActivityIntent = Intent(this, ScheduleActivity::class.java)
+            startActivity(scheduleActivityIntent)
+            finish()
+        }
     }
 
 }
