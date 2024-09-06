@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.adapter.SecondWeekAdapter
 import com.android.shedule.api.GroupApi
 import com.android.shedule.api.ScheduleApi
+import com.android.shedule.config.DbConfig
+import com.android.shedule.models.ScheduleDbEntity
 import com.android.shedule.models.ScheduleForDrawing
 import com.android.shedule.retrofit.RetrofitGetter
 import kotlinx.coroutines.CoroutineScope
@@ -36,29 +38,52 @@ class SecondWeek : ComponentActivity() {
         val groupName = intent.getStringExtra("groupName").toString()
         val groupCourse = intent.getStringExtra("course").toString()
 
-        val scheduleForDrawingArray : Array<Array<ScheduleForDrawing>> = Array(6){
-            Array(3){
-                ScheduleForDrawing("", "", "", "")
-            }
-        }
+        val database = DbConfig.getDb(this)
 
-        CoroutineScope(Dispatchers.Main).launch{
+        CoroutineScope(Dispatchers.IO).launch{
+            val scheduleArray: Array<List<ScheduleDbEntity>> = Array(6){listOf()}
             val groupId = groupApi.getGroupByNameAndCourse(groupName, groupCourse.toInt()).id
-            for(i in 1 until 7) {
-                val scheduleList = scheduleApi.getScheduleByGroupIdAndWeekIdAndWeekType(groupId, i, 1)
 
-                for(j in scheduleList.indices){
-                    scheduleForDrawingArray[i - 1][j].subject = scheduleList[j].subject.name
-                    scheduleForDrawingArray[i - 1][j].teacher = scheduleList[j].subject.teacher.fullName
-                    scheduleForDrawingArray[i - 1][j].time = scheduleList[j].time.time.substringBeforeLast(':')
-                    scheduleForDrawingArray[i - 1][j].auditorium = "Аудитория: " + scheduleList[j].subject.auditorium
-                }
+            if (database.getScheduleDao().getScheduleByGroupIdAndWeekType(groupId, 1).isEmpty()){
+                val scheduleFromServer = scheduleApi.getScheduleByGroupIdAndWeekType(groupId, 1)
+                saveToDb(scheduleFromServer, scheduleArray, groupId, database)
             }
-            dayRecyclerView(scheduleForDrawingArray)
+            loadScheduleFromDb(scheduleArray, groupId, database)
         }
     }
 
-    private fun dayRecyclerView(scheduleForDrawingArray: Array<Array<ScheduleForDrawing>>) {
+    private fun saveToDb(scheduleForDrawingArray: Array<Array<ScheduleForDrawing>>,
+                         scheduleArray: Array<List<ScheduleDbEntity>>, groupId: Int, database: DbConfig) {
+        Thread{
+            for (i in 0 until 6) {
+                for (j in 0 until scheduleForDrawingArray[i].size) {
+                    database.getScheduleDao().insertSchedule(
+                        ScheduleDbEntity(groupId, i, scheduleForDrawingArray[i][j].subject.name,
+                            scheduleForDrawingArray[i][j].subject.teacher.fullName, scheduleForDrawingArray[i][j].time.time,
+                            scheduleForDrawingArray[i][j].subject.auditorium, 1)
+                    )
+                }
+            }
+            loadScheduleFromDb(scheduleArray, groupId, database)
+        }.start()
+    }
+
+    private fun loadScheduleFromDb(scheduleArray: Array<List<ScheduleDbEntity>>,
+                                   groupId: Int, database: DbConfig) {
+        Thread{
+            for(i in 0 until 6){
+                scheduleArray[i] = database.getScheduleDao().
+                getScheduleByGroupIdAndWeekTypeAndWeek(groupId, 1, i)
+            }
+        }.start()
+
+        runOnUiThread {
+            dayRecyclerView(scheduleArray)
+        }
+    }
+
+
+    private fun dayRecyclerView(scheduleForDrawingArray: Array<List<ScheduleDbEntity>>) {
         val weekRecyclerView = findViewById<RecyclerView>(R.id.recyclerViewSecondWeek)
         val imageList = arrayListOf(
             R.drawable.monday_second,

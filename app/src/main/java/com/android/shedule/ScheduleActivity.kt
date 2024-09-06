@@ -3,15 +3,12 @@ package com.android.shedule
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.adapter.ScheduleBoxAdapter
 import com.android.shedule.config.DbConfig
-import com.android.shedule.models.ScheduleBox
-import com.android.shedule.models.ScheduleBoxDbEntity
 
 class ScheduleActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,10 +40,8 @@ class ScheduleActivity : ComponentActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        database.getDao().getAllScheduleBox().asLiveData().observe(this){
+        database.getScheduleBoxDao().getAllScheduleBox().asLiveData().observe(this){
             recyclerView.adapter = ScheduleBoxAdapter(it, R.drawable.schedule_box, this)
         }
     }
 }
-
-

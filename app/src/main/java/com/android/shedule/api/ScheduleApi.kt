@@ -1,19 +1,13 @@
 package com.android.shedule.api
 
-import com.android.shedule.models.Schedule
+import com.android.shedule.models.ScheduleDbEntity
+import com.android.shedule.models.ScheduleForDrawing
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ScheduleApi {
 
-    @GET("schedule/{id}")
-    suspend fun getOne(@Path(value = "id") id: Int): Schedule
-
-    @GET("schedule/groups/{id}")
-    suspend fun getScheduleByGroupId(@Path(value = "id") id: Int): List<Schedule>
-
-    @GET("schedule/week/{groupId}-{weekId}-{weekType}")
-    suspend fun getScheduleByGroupIdAndWeekIdAndWeekType(@Path(value = "groupId") groupId: Int,
-                                                         @Path(value = "weekId") weekId: Int,
-                                                         @Path(value = "weekType") weekType: Int): List<Schedule>
+    @GET("schedule/week/{groupId}-{weekType}")
+    suspend fun getScheduleByGroupIdAndWeekType(@Path(value = "groupId") groupId: Int,
+                                                         @Path(value = "weekType") weekType: Int): Array<Array<ScheduleForDrawing>>
 }

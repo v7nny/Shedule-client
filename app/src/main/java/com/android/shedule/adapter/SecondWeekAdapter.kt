@@ -7,10 +7,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.R
+import com.android.shedule.models.ScheduleDbEntity
 import com.android.shedule.models.ScheduleForDrawing
 
 class SecondWeekAdapter (private val imageList: ArrayList<Int>,
-                         private val scheduleForDrawingArray: Array<Array<ScheduleForDrawing>>
+                         private val scheduleForDrawingArray: Array<List<ScheduleDbEntity>>
 ): RecyclerView.Adapter<SecondWeekAdapter.SecondWeekHolder>() {
 
     class SecondWeekHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -32,6 +33,6 @@ class SecondWeekAdapter (private val imageList: ArrayList<Int>,
         holder.dayImageList.setImageResource(imageList[position])
 
         holder.recyclerViewForDays.layoutManager = LinearLayoutManager(holder.recyclerViewForDays.context)
-        holder.recyclerViewForDays.adapter = FirstDaysAdapter(scheduleForDrawingArray[position])
+        holder.recyclerViewForDays.adapter = SecondDaysAdapter(scheduleForDrawingArray[position])
     }
 }

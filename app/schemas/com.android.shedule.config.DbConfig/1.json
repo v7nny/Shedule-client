@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ae9625b0beba29687a3dbcd689d066a0",
+    "identityHash": "b95e2e80e9e06979127a44875b096fab",
     "entities": [
       {
         "tableName": "ScheduleBox",
@@ -37,12 +37,74 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Schedule",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`group_id` INTEGER NOT NULL, `day_of_the_week` INTEGER NOT NULL, `subject` TEXT NOT NULL, `teacher` TEXT NOT NULL, `time` TEXT NOT NULL, `auditorium` TEXT NOT NULL, `week_type` INTEGER NOT NULL, PRIMARY KEY(`group_id`, `subject`, `day_of_the_week`, `time`, `week_type`, `teacher`, `auditorium`))",
+        "fields": [
+          {
+            "fieldPath": "groupId",
+            "columnName": "group_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dayOfTheWeek",
+            "columnName": "day_of_the_week",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subject",
+            "columnName": "subject",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teacher",
+            "columnName": "teacher",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "auditorium",
+            "columnName": "auditorium",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weekType",
+            "columnName": "week_type",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "group_id",
+            "subject",
+            "day_of_the_week",
+            "time",
+            "week_type",
+            "teacher",
+            "auditorium"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ae9625b0beba29687a3dbcd689d066a0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b95e2e80e9e06979127a44875b096fab')"
     ]
   }
 }

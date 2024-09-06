@@ -6,23 +6,17 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.asLiveData
-import com.android.shedule.adapter.ScheduleBoxAdapter
 import com.android.shedule.api.GroupApi
 import com.android.shedule.api.SpecializationApi
 import com.android.shedule.config.DbConfig
-import com.android.shedule.dao.ScheduleBoxDAO
 import com.android.shedule.models.ScheduleBoxDbEntity
 import com.android.shedule.retrofit.RetrofitGetter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class PlusActivity : ComponentActivity() {
@@ -126,18 +120,9 @@ class PlusActivity : ComponentActivity() {
                 getSpecializationSpinner().selectedItem.toString()
             )
 
-        database.getDao().getAllScheduleBox().asLiveData().observe(this){
-            val isLocated = it.stream().filter{s -> s == scheduleBox}.findAny().orElse(null)
-
-            if(isLocated == null){
-                Thread {
-                    database.getDao().insertScheduleBox(scheduleBox)
-                }.start()
-            }
-
-//            if (it.stream().filter{s -> s == scheduleBox}.findAny().orElse(null) != null){
-//                Toast.makeText(this, "Вы уже добавили расписание для этой группы", LENGTH_SHORT).show()
-//            }
+            database.getScheduleBoxDao().getAllScheduleBox().asLiveData().observe(this){
+                if(!it.contains(scheduleBox))
+                    Thread {database.getScheduleBoxDao().insertScheduleBox(scheduleBox)}.start()
         }
 
             val scheduleActivityIntent = Intent(this, ScheduleActivity::class.java)

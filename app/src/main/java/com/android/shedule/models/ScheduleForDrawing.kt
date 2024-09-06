@@ -1,8 +1,10 @@
 package com.android.shedule.models
 
+import com.google.gson.annotations.SerializedName
+
 data class ScheduleForDrawing(
-    var subject: String,
-    var time: String,
-    var teacher: String,
-    var auditorium: String
+    @SerializedName("subject")
+    val subject: Subject,
+    @SerializedName("time")
+    val time : Time
 )

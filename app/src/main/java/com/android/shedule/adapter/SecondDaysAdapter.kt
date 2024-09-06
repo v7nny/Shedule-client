@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.shedule.R
+import com.android.shedule.models.ScheduleDbEntity
 import com.android.shedule.models.ScheduleForDrawing
 
-class SecondDaysAdapter(private val scheduleForDrawing: Array<ScheduleForDrawing>): RecyclerView.Adapter<SecondDaysAdapter.SecondDaysHolder>() {
+class SecondDaysAdapter(private val scheduleForDrawing: List<ScheduleDbEntity>): RecyclerView.Adapter<SecondDaysAdapter.SecondDaysHolder>() {
 
     class SecondDaysHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val subjectName: TextView = itemView.findViewById(R.id.subjectName)
@@ -29,7 +30,7 @@ class SecondDaysAdapter(private val scheduleForDrawing: Array<ScheduleForDrawing
     override fun onBindViewHolder(holder: SecondDaysHolder, position: Int) {
         holder.subjectName.text = scheduleForDrawing[position].subject
         holder.teacherName.text = scheduleForDrawing[position].teacher
-        holder.auditoriumName.text = scheduleForDrawing[position].auditorium
-        holder.timeTextViewFirst.text = scheduleForDrawing[position].time
+        holder.auditoriumName.text = "Аудитория: " + scheduleForDrawing[position].auditorium
+        holder.timeTextViewFirst.text = scheduleForDrawing[position].time.substringBeforeLast(':')
     }
 }
